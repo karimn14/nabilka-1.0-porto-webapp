@@ -1,0 +1,224 @@
+Engineering Portfolio Website — React + TailwindCSS
+
+## Objective
+Build a **professional, stable, and responsive engineering portfolio website** for  
+**Nabil Karim Abdurrahman**, Engineering Physics student at **Institut Teknologi Bandung**, focusing on **Embedded Systems, IIoT, Control Systems, and Robotics**.
+
+The site must look professional, lightweight, and pixel-clean.  
+Use **only stable, production-ready React + TailwindCSS components** — no experimental or third-party UI libraries.
+
+---
+
+## Design Language
+**Color Palette**
+- Background    : `#0A192F`  
+- Accent Blue    : `#007BFF` / `#64FFDA`  
+- Text Color     : `#E6F1FF`  
+- Font Family    : `"Inter"` or `"Montserrat"`, sans-serif  
+
+**Style Target**
+Dark navy engineering aesthetic — black-blue-white tones, subtle glow, clear hierarchy, and generous spacing.  
+All elements must render symmetrically with consistent padding and alignment.
+
+---
+
+## Technology Stack
+- **React (functional components only)**
+- **TailwindCSS** for all styling (no inline styles)
+- **Framer Motion** for simple fade/slide animations
+- Mobile-first responsive layout
+- **No external UI kits** (DaisyUI, Flowbite, MUI, etc.)
+
+**Project Structure**
+/src
+/components
+/pages
+index.jsx
+experience.jsx
+portfolio.jsx
+learning.jsx
+contact.jsx
+/assets
+/images
+/docs
+
+yaml
+Copy code
+
+---
+
+## Page Specifications
+
+### 1️⃣ Home (`index.jsx`)
+- Headline: `"Engineering Physics | Embedded Systems | IIoT | Control Systems"`
+- Short bio (2 – 3 lines):  
+  > Detail-oriented Engineering Physics student passionate about embedded systems and intelligent control innovation.
+- Buttons:
+  - **View Portfolio** → `/portfolio`
+  - **Download CV** → `/docs/CV_Nabil_Karim.pdf`
+- Optional animated gradient/particle background (pure CSS)
+- Footer with aligned social icons (LinkedIn / GitHub / Email)
+
+Use Tailwind utilities for spacing and alignment:  
+`flex`, `items-center`, `justify-center`, `gap-8`, `py-16`, `px-8`.
+
+---
+
+### 2️⃣ Experience (`experience.jsx`)
+Display roles using a two-column responsive grid:  
+`grid grid-cols-1 md:grid-cols-2 gap-8`
+
+Each card:
+```text
+rounded-xl bg-[#112240] border border-[#1E3A8A]
+p-6 shadow-md hover:shadow-lg transition-all
+Render these roles (summarized):
+
+PT Syergie Autotek — Embedded System Engineer Intern (Jun–Nov 2025)
+
+PT Abimantrana Engineering — Project Engineer (Aug–Nov 2025)
+
+Institut Teknologi Bandung — Lab Assistant Coordinator (Feb–Jun 2025)
+
+Rumah Amal Salman — Full Stack Engineer (Jan–Apr 2025)
+
+Kedaireka.id — Engineer Intern (Jun 2024–Jan 2025)
+
+Unit Robotika ITB (URO) — Programming and Mechanical Crew (2023–2025)
+
+Use semantic elements (<section>, <article>). Maintain consistent vertical rhythm via space-y-2.
+
+3️⃣ Portfolio (portfolio.jsx)
+Create a responsive grid:
+grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6
+
+Each project card:
+
+Placeholder image box (bg-[#1E293B] h-48 rounded-lg flex items-center justify-center)
+
+Title and 60-word description
+
+Tech stack badges (px-3 py-1 rounded-full bg-[#1E3A8A] text-[#64FFDA] text-sm)
+
+Projects include:
+
+Autonomous Palm Pollination Drone — Jetson Nano + Pixhawk + STM32 + ROS + YOLO
+
+Custom STM32 PCB Design — 2-layer board with AMS1117 LDO + USB + SWD
+
+IIoT Capstone — Node-RED / MQTT / Next.js / MongoDB
+
+Intelligent EV Charging Station — React + FastAPI + XGBoost
+
+PID Temp Control Box — ESP32 RTOS dual-core PID loop
+
+Include “Download Full Portfolio (PDF)” → /docs/Engineering_Portfolio_Nabil.pdf.
+
+4️⃣ Learning Journey (learning.jsx)
+Display a clean roadmap with three cards (grid or vertical stack).
+Each card:
+
+text
+Copy code
+rounded-lg border border-[#1E3A8A]
+bg-[#112240] p-6 transition-transform hover:scale-[1.02]
+Topics:
+
+Intermediate Microcontroller & PCB Design
+
+MATLAB Nonlinear ANFIS Control
+
+ROS Navigation & Digital Twin
+
+Each card can expand/collapse via simple React useState toggle.
+
+5️⃣ Contact (contact.jsx)
+Form fields: Name, Email, Message
+(rounded-lg p-3 w-full bg-[#1E293B] border border-[#1E3A8A])
+
+Submit button with Tailwind hover/transition
+
+Inline social icons (LinkedIn, GitHub, Email)
+
+Footer: © 2025 Nabil Karim Abdurrahman
+
+Maintain consistent vertical padding (py-16 px-8)
+
+Ensure zero empty whitespace and no layout gaps.
+
+🧩 UI/UX Rules
+Fill all sections; no empty or floating space.
+
+Use Tailwind spacing scale (py-16, px-8, gap-8).
+
+Maintain consistent alignment across all breakpoints.
+
+Use max-w-6xl mx-auto for central layout constraint.
+
+All images 16:9 aspect ratio, object-cover.
+
+Use flex, grid, or space-y-* for clean flow.
+
+Responsive rules: stack vertically on small screens; grid on ≥ md.
+
+No overflow; layouts must reflow smoothly.
+
+No inline CSS or absolute positioning unless necessary.
+
+🔒 Rendering & Stability Rules
+Use only official TailwindCSS utilities — no plugins or third-party components.
+
+Write semantic HTML structure (<main>, <section>, <footer>).
+
+Every component must render independently with zero console warnings.
+
+Avoid custom CSS files; rely on Tailwind utilities exclusively.
+
+User will later insert personal images (keep <img> tags with alt placeholders).
+
+📈 SEO Meta
+html
+Copy code
+<title>Nabil Karim Abdurrahman | Embedded Systems Engineer Portfolio</title>
+<meta name="description" content="Portfolio and CV of Nabil Karim Abdurrahman — Embedded Systems, IIoT, Control Systems, and Robotics.">
+✅ Deliverables
+Fully functional React components in /src/pages
+
+Reusable UI in /src/components (Navbar, Footer, Card, Modal, FilterTabs)
+
+tailwind.config.js with brand colors (#0A192F, #007BFF, #64FFDA, #E6F1FF)
+
+Responsive, accessible layout with no spacing artifacts
+
+Working download links in /public/docs/
+
+⚙️ Copilot Behavior
+When generating code:
+
+Use React functional components (function ComponentName() { ... }).
+
+Style only with Tailwind utility classes — no inline styles or external CSS.
+
+Always maintain responsive design using sm:, md:, lg: breakpoints.
+
+Keep code semantic, concise, and render-safe.
+
+Comment key layout sections (e.g., {/* Hero Section */}).
+
+Prefer stable layout primitives (div, section, header, footer, main, article).
+
+Each output must produce valid JSX with clean, symmetrical layout, proper spacing, and no rendering errors.
+
+yaml
+Copy code
+
+---
+
+### 🧠 Usage Guide
+1. Create a `README_AI_INSTRUCTIONS.md` in the project root.  
+2. Paste this entire prompt inside it.  
+3. In any `.jsx` file, add a directive comment like:  
+   ```jsx
+   // Build Experience Section following README_AI_INSTRUCTIONS
+Copilot (GPT-4o) will auto-align its code suggestions with these rules.
+4. Verify rendering at sm, md, lg breakpoints for responsive behavior.
