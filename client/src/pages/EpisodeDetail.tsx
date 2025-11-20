@@ -622,19 +622,19 @@ end`,
           </div>
         </motion.div>
 
-        <div className="space-y-8">
-          {/* Images */}
-          {episode.images && episode.images.length > 0 && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="flex gap-4 overflow-hidden"
-            >
+        {/* Images */}
+        {episode.images && episode.images.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="mb-12"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {episode.images.slice(0, 3).map((image: string, idx: number) => (
                 <Dialog key={idx}>
                   <DialogTrigger asChild>
-                    <div className="relative group cursor-pointer overflow-hidden rounded-lg border border-navy-border hover:shadow-lg transition-all flex-1 min-w-0">
+                    <div className="relative group cursor-pointer overflow-hidden rounded-lg border border-navy-border hover:shadow-lg transition-all">
                       <img
                         src={image}
                         alt={`Progress image ${idx + 1}`}
@@ -656,16 +656,14 @@ end`,
                   </DialogContent>
                 </Dialog>
               ))}
-              {episode.images.length > 3 && (
+            </div>
+            {episode.images.length > 3 && (
+              <div className="mt-4 text-center">
                 <Dialog>
                   <DialogTrigger asChild>
-                    <div className="relative group cursor-pointer overflow-hidden rounded-lg border border-navy-border hover:shadow-lg transition-all flex-1 min-w-0 bg-muted/50 flex items-center justify-center">
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-accent mb-1">+</div>
-                        <div className="text-sm text-muted-foreground">View All</div>
-                      </div>
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
-                    </div>
+                    <button className="text-accent hover:underline text-sm">
+                      View all {episode.images.length} images
+                    </button>
                   </DialogTrigger>
                   <DialogContent className="max-w-6xl">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -697,271 +695,193 @@ end`,
                     </div>
                   </DialogContent>
                 </Dialog>
-              )}
-            </motion.div>
-          )}
-
-          {/* Objective */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <Card className="border-navy-border">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Target className="w-5 h-5 text-accent" />
-                  Objective
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground leading-relaxed">{episode.objective}</p>
-              </CardContent>
-            </Card>
+              </div>
+            )}
           </motion.div>
+        )}
 
-          {/* Planning */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <Card className="border-navy-border">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <BookOpen className="w-5 h-5 text-accent" />
-                  Planning
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2">
-                  {episode.planning.map((item: string, idx: number) => (
-                    <li key={idx} className="flex items-start gap-2 text-muted-foreground">
-                      <span className="text-accent mt-1">\u2022</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-          </motion.div>
+        {/* Main Content */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="prose prose-lg max-w-none text-foreground"
+        >
+          {/* Introduction */}
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
+              <Target className="w-5 h-5 text-accent" />
+              Project Overview
+            </h2>
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              {episode.objective}
+            </p>
+            <p className="text-muted-foreground leading-relaxed">
+              This {episode.duration} project began in {episode.date}, focusing on hands-on implementation and practical problem-solving in engineering design.
+            </p>
+          </div>
 
-          {/* Design */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
-            <Card className="border-navy-border">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Wrench className="w-5 h-5 text-accent" />
-                  Design
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-muted-foreground">{episode.design.description}</p>
-                <Separator />
-                <div className="space-y-2">
-                  <h4 className="font-medium text-foreground">Key Equations:</h4>
-                  {episode.design.equations.map((eq: string, idx: number) => (
-                    <div key={idx} className="bg-muted p-3 rounded-md font-mono text-sm text-foreground">
-                      {eq}
-                    </div>
-                  ))}
+          {/* Planning & Approach */}
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
+              <BookOpen className="w-5 h-5 text-accent" />
+              Planning & Initial Approach
+            </h2>
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              The project started with a structured planning phase to establish a solid foundation:
+            </p>
+            <ul className="space-y-2 mb-4">
+              {episode.planning.map((item: string, idx: number) => (
+                <li key={idx} className="flex items-start gap-2 text-muted-foreground">
+                  <span className="text-accent mt-1">•</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Technical Design */}
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
+              <Wrench className="w-5 h-5 text-accent" />
+              Technical Design & Analysis
+            </h2>
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              {episode.design.description}
+            </p>
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              Key mathematical relationships and design equations formed the backbone of the technical approach:
+            </p>
+            <div className="space-y-3 mb-6">
+              {episode.design.equations.map((eq: string, idx: number) => (
+                <div key={idx} className="bg-muted p-4 rounded-lg border-l-4 border-accent">
+                  <code className="text-sm text-foreground font-mono">{eq}</code>
                 </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-
-          {/* Calculation */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            <Card className="border-navy-border">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Lightbulb className="w-5 h-5 text-accent" />
-                  Calculation & Analysis
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2">
-                  {episode.calculation.map((item: string, idx: number) => (
-                    <li key={idx} className="flex items-start gap-2 text-muted-foreground">
-                      <span className="text-accent mt-1">\u2022</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-          </motion.div>
-
-          {/* Method */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-          >
-            <Card className="border-navy-border">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Code className="w-5 h-5 text-accent" />
-                  Method & Approach
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2">
-                  {episode.method.map((item: string, idx: number) => (
-                    <li key={idx} className="flex items-start gap-2 text-muted-foreground">
-                      <span className="text-accent mt-1">\u2022</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-          </motion.div>
+              ))}
+            </div>
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              Through detailed calculations and analysis, several critical parameters were determined:
+            </p>
+            <ul className="space-y-2 mb-4">
+              {episode.calculation.map((item: string, idx: number) => (
+                <li key={idx} className="flex items-start gap-2 text-muted-foreground">
+                  <span className="text-accent mt-1">•</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
 
           {/* Implementation */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-          >
-            <Card className="border-navy-border">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Code className="w-5 h-5 text-accent" />
-                  Implementation
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div>
-                  <h4 className="font-medium text-foreground mb-2">Tools Used:</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {episode.implementation.tools.map((tool: string) => (
-                      <span
-                        key={tool}
-                        className="px-3 py-1 rounded-full bg-muted text-accent text-xs font-medium"
-                      >
-                        {tool}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <Separator />
-                <div>
-                  <h4 className="font-medium text-foreground mb-2">Code Implementation:</h4>
-                  <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-xs">
-                    <code className="text-foreground">{episode.implementation.code}</code>
-                  </pre>
-                </div>
-                <Separator />
-                <div>
-                  <h4 className="font-medium text-foreground mb-2">Results:</h4>
-                  <p className="text-muted-foreground">{episode.implementation.results}</p>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
+              <Code className="w-5 h-5 text-accent" />
+              Implementation & Results
+            </h2>
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              The implementation phase focused on translating theoretical designs into working solutions using systematic approaches:
+            </p>
+            <ul className="space-y-2 mb-6">
+              {episode.method.map((item: string, idx: number) => (
+                <li key={idx} className="flex items-start gap-2 text-muted-foreground">
+                  <span className="text-accent mt-1">•</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="bg-muted/50 p-6 rounded-lg mb-6">
+              <h3 className="text-lg font-semibold text-foreground mb-3">Tools & Technologies</h3>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {episode.implementation.tools.map((tool: string) => (
+                  <span
+                    key={tool}
+                    className="px-3 py-1 rounded-full bg-accent/10 text-accent text-sm font-medium"
+                  >
+                    {tool}
+                  </span>
+                ))}
+              </div>
+              <h3 className="text-lg font-semibold text-foreground mb-3">Key Code Implementation</h3>
+              <pre className="bg-muted p-4 rounded-lg overflow-x-auto text-sm mb-4">
+                <code className="text-foreground">{episode.implementation.code}</code>
+              </pre>
+              <h3 className="text-lg font-semibold text-foreground mb-2">Results Achieved</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                {episode.implementation.results}
+              </p>
+            </div>
+          </div>
 
           {/* Lessons Learned */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.7 }}
-          >
-            <Card className="border-navy-border">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <CheckCircle className="w-5 h-5 text-accent" />
-                  Lessons Learned
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
-                  {episode.lessonsLearned.map((lesson: string, idx: number) => (
-                    <li key={idx} className="flex items-start gap-2">
-                      <CheckCircle className="w-4 h-4 text-accent mt-1 flex-shrink-0" />
-                      <span className="text-muted-foreground">{lesson}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-          </motion.div>
-
-          {/* References */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.8 }}
-          >
-            <Card className="border-navy-border">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <BookOpen className="w-5 h-5 text-accent" />
-                  References
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-muted-foreground">
-                  <p className="mb-4">This episode draws from the following sources and references:</p>
-                  <div className="space-y-2">
-                    <div className="flex items-start gap-2">
-                      <span className="text-accent mt-1">•</span>
-                      <span>Technical documentation and datasheets from component manufacturers</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-accent mt-1">•</span>
-                      <span>Research papers and academic articles on relevant technologies</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-accent mt-1">•</span>
-                      <span>Online tutorials and community resources</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-accent mt-1">•</span>
-                      <span>Practical implementation guides and best practices</span>
-                    </div>
-                  </div>
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
+              <CheckCircle className="w-5 h-5 text-accent" />
+              Key Insights & Lessons Learned
+            </h2>
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              Throughout this project, several important lessons emerged that will inform future engineering work:
+            </p>
+            <div className="space-y-4">
+              {episode.lessonsLearned.map((lesson: string, idx: number) => (
+                <div key={idx} className="flex items-start gap-3 p-4 bg-accent/5 rounded-lg border-l-4 border-accent">
+                  <CheckCircle className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
+                  <p className="text-muted-foreground leading-relaxed">{lesson}</p>
                 </div>
-              </CardContent>
-            </Card>
-          </motion.div>
+              ))}
+            </div>
+          </div>
 
           {/* Next Steps */}
           {episode.nextSteps && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 1.0 }}
-            >
-              <Card className="border-navy-border bg-accent/5">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Target className="w-5 h-5 text-accent" />
-                    Next Steps
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2">
-                    {episode.nextSteps.map((step: string, idx: number) => (
-                      <li key={idx} className="flex items-start gap-2 text-muted-foreground">
-                        <span className="text-accent mt-1">\u2192</span>
-                        <span>{step}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            </motion.div>
+            <div className="mb-8">
+              <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
+                <Target className="w-5 h-5 text-accent" />
+                Future Directions
+              </h2>
+              <p className="text-muted-foreground leading-relaxed mb-4">
+                Based on the outcomes and insights gained, the following steps will continue this line of development:
+              </p>
+              <div className="space-y-3">
+                {episode.nextSteps.map((step: string, idx: number) => (
+                  <div key={idx} className="flex items-start gap-3 p-3 bg-muted/30 rounded-lg">
+                    <span className="text-accent mt-1">→</span>
+                    <span className="text-muted-foreground">{step}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           )}
-        </div>
+
+          {/* References */}
+          <div className="border-t pt-8">
+            <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
+              <BookOpen className="w-5 h-5 text-accent" />
+              References & Resources
+            </h2>
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              This work builds upon knowledge from various technical sources and practical experiences:
+            </p>
+            <div className="space-y-2">
+              <div className="flex items-start gap-2 text-muted-foreground">
+                <span className="text-accent mt-1">•</span>
+                <span>Technical documentation and datasheets from component manufacturers</span>
+              </div>
+              <div className="flex items-start gap-2 text-muted-foreground">
+                <span className="text-accent mt-1">•</span>
+                <span>Research papers and academic articles on relevant technologies</span>
+              </div>
+              <div className="flex items-start gap-2 text-muted-foreground">
+                <span className="text-accent mt-1">•</span>
+                <span>Online tutorials and community resources</span>
+              </div>
+              <div className="flex items-start gap-2 text-muted-foreground">
+                <span className="text-accent mt-1">•</span>
+                <span>Practical implementation guides and best practices</span>
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </main>
 
       <Footer />
