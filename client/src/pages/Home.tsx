@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Github, Linkedin, Mail } from "lucide-react";
 import { motion } from "framer-motion";
+import Footer from '../components/Footer';
 
 export default function Home() {
   return (
@@ -34,7 +35,7 @@ export default function Home() {
                 View Portfolio
               </Button>
             </Link>
-            <a href="/docs/CV_Nabil_Karim.pdf" download>
+            <a href="docs/CV_Nabil_Karim.pdf" download>
               <Button
                 size="lg"
                 variant="outline"
@@ -46,44 +47,10 @@ export default function Home() {
             </a>
           </div>
 
-          <div className="pt-8">
-            <div className="inline-flex items-center gap-6 p-4 rounded-lg bg-card/50 border border-card-border">
-              <a
-                href="https://linkedin.com/in/nabilkarim"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-accent transition-colors"
-                data-testid="link-linkedin"
-                aria-label="LinkedIn Profile"
-              >
-                <Linkedin className="h-6 w-6" />
-              </a>
-              <a
-                href="https://github.com/nabilkarim"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-accent transition-colors"
-                data-testid="link-github"
-                aria-label="GitHub Profile"
-              >
-                <Github className="h-6 w-6" />
-              </a>
-              <a
-                href="mailto:nabil.karim@example.com"
-                className="text-muted-foreground hover:text-accent transition-colors"
-                data-testid="link-email"
-                aria-label="Email Contact"
-              >
-                <Mail className="h-6 w-6" />
-              </a>
-            </div>
-          </div>
         </motion.div>
       </section>
 
-      <footer className="py-6 text-center text-sm text-muted-foreground border-t border-border">
-        <p data-testid="text-footer-copyright">© 2025 Nabil Karim Abdurrahman</p>
-      </footer>
+      <Footer />
     </main>
   );
 }

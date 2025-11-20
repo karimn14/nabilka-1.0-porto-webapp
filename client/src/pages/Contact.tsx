@@ -160,7 +160,7 @@ export default function Contact() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <a
-                  href="https://linkedin.com/in/nabilkarim"
+                  href="https://linkedin.com/in/nabil-karim-abdurrahman"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 p-3 rounded-lg bg-card/50 hover-elevate transition-all border border-card-border"
@@ -174,7 +174,7 @@ export default function Contact() {
                 </a>
 
                 <a
-                  href="https://github.com/nabilkarim"
+                  href="https://github.com/karimn14"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 p-3 rounded-lg bg-card/50 hover-elevate transition-all border border-card-border"
@@ -188,14 +188,14 @@ export default function Contact() {
                 </a>
 
                 <a
-                  href="mailto:nabil.karim@example.com"
+                  href="mailto:nabil.kar04@gmail.com"
                   className="flex items-center gap-3 p-3 rounded-lg bg-card/50 hover-elevate transition-all border border-card-border"
                   data-testid="link-email-card"
                 >
                   <Mail className="h-5 w-5 text-accent shrink-0" />
                   <div className="flex-1">
                     <p className="text-sm font-medium text-foreground">Email</p>
-                    <p className="text-xs text-muted-foreground break-all">nabil.karim@example.com</p>
+                    <p className="text-xs text-muted-foreground break-all">nabil.kar04@gmail.com</p>
                   </div>
                 </a>
               </CardContent>

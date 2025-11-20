@@ -3,12 +3,14 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Download, Cpu } from "lucide-react";
 import { motion } from "framer-motion";
+import Footer from '../components/Footer';
 
 interface Project {
   title: string;
   description: string;
   techStack: string[];
   category: string;
+  image: string; // Added image property
 }
 
 const projects: Project[] = [
@@ -16,38 +18,43 @@ const projects: Project[] = [
     title: "Autonomous Palm Pollination Drone",
     description: "Developed an autonomous drone system for palm tree pollination using computer vision and embedded systems. Integrated Jetson Nano for AI processing, Pixhawk for flight control, STM32 for sensor management, ROS for system orchestration, and YOLO for real-time object detection.",
     techStack: ["Jetson Nano", "Pixhawk", "STM32", "ROS", "YOLO", "Python", "C++"],
-    category: "Robotics & AI"
+    category: "Robotics & AI",
+    image: "images/autonomous_drone.png", // Image placeholder
   },
   {
     title: "Custom STM32 PCB Design",
     description: "Designed and fabricated a 2-layer PCB featuring STM32 microcontroller with integrated power management (AMS1117 LDO), USB communication interface, and SWD programming connector. Included protection circuits and optimized layout for EMI reduction.",
-    techStack: ["STM32", "Altium Designer", "AMS1117", "USB", "SWD", "Power Design"],
-    category: "Hardware Design"
+    techStack: ["STM32", "Kicad", "AMS1117", "USB", "SWD", "Power Design"],
+    category: "Hardware Design",
+    image: "images/stm32_pcb.png", // Image placeholder
   },
   {
     title: "IIoT Capstone Project",
     description: "Built an Industrial Internet of Things platform for real-time monitoring and control. Implemented MQTT protocol for device communication, Node-RED for workflow automation, Next.js frontend for data visualization, and MongoDB for time-series data storage.",
     techStack: ["Node-RED", "MQTT", "Next.js", "MongoDB", "IoT", "Real-time"],
-    category: "Industrial IoT"
+    category: "Industrial IoT",
+    image: "images/iiot_capstone.png", // Image placeholder
   },
   {
     title: "Intelligent EV Charging Station",
     description: "Designed a smart electric vehicle charging station with predictive load management. Built with React frontend, FastAPI backend, and XGBoost machine learning model for demand forecasting and optimal charging schedule recommendations.",
     techStack: ["React", "FastAPI", "XGBoost", "Python", "ML", "Energy"],
-    category: "Smart Systems"
+    category: "Smart Systems",
+    image: "images/ev_charging_station.png", // Image placeholder
   },
   {
     title: "PID Temperature Control Box",
     description: "Implemented a dual-core PID temperature controller using ESP32 RTOS. One core handles real-time PID calculations while the other manages UI and data logging. Features auto-tuning, safety limits, and wireless monitoring capabilities.",
     techStack: ["ESP32", "RTOS", "PID Control", "C/C++", "FreeRTOS", "Embedded"],
-    category: "Control Systems"
+    category: "Control Systems",
+    image: "images/pid_temperature_control.png", // Image placeholder
   }
 ];
 
 export default function Portfolio() {
   return (
-    <main className="min-h-screen pt-24 pb-16 px-8">
-      <div className="max-w-6xl mx-auto">
+    <main className="min-h-screen flex flex-col">
+      <div className="max-w-6xl mx-auto pt-20">
         <motion.div 
           className="text-center mb-16 space-y-4"
           initial={{ opacity: 0, y: 20 }}
@@ -76,9 +83,12 @@ export default function Portfolio() {
               data-testid={`card-project-${index}`}
             >
               <CardHeader>
-                <div className="h-48 rounded-md bg-muted flex items-center justify-center mb-4 relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 group-hover:from-primary/30 group-hover:to-accent/30 transition-all"></div>
-                  <Cpu className="h-16 w-16 text-accent/60 relative z-10" />
+                <div className="h-48 rounded-md bg-muted flex items-center justify-center mb-4 relative overflow-hidden">
+                  <img
+                    src={project.image}
+                    alt={`${project.title} image`}
+                    className="absolute inset-0 w-full h-full object-cover rounded-md"
+                  />
                 </div>
                 <Badge variant="secondary" className="w-fit mb-2 bg-accent/20 text-accent border-accent/30">
                   {project.category}
@@ -108,7 +118,7 @@ export default function Portfolio() {
         </div>
 
         <div className="text-center">
-          <a href="/docs/Engineering_Portfolio_Nabil.pdf" download>
+          <a href="docs/Engineering_Portolio_Nabil.pdf" download>
             <Button
               size="lg"
               className="gap-2 bg-primary text-primary-foreground hover-elevate active-elevate-2"
@@ -120,6 +130,7 @@ export default function Portfolio() {
           </a>
         </div>
       </div>
+      <Footer />
     </main>
   );
 }

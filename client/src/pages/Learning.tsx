@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { ChevronDown, ChevronUp, BookOpen, Code, Cog } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
+import Footer from '../components/Footer';
 
 interface LearningTopic {
   title: string;
@@ -81,8 +82,8 @@ export default function Learning() {
   };
 
   return (
-    <main className="min-h-screen pt-24 pb-16 px-8">
-      <div className="max-w-6xl mx-auto">
+    <main className="min-h-screen flex flex-col">
+      <div className="max-w-6xl mx-auto pt-20">
         <motion.div 
           className="text-center mb-16 space-y-4"
           initial={{ opacity: 0, y: 20 }}
@@ -199,6 +200,7 @@ export default function Learning() {
           })}
         </div>
       </div>
+    <Footer />
     </main>
   );
 }
