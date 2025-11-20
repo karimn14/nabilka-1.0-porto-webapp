@@ -45,7 +45,7 @@ const projects: Project[] = [
   {
     title: "PID Temperature Control Box",
     description: "Implemented a dual-core PID temperature controller using ESP32 RTOS. One core handles real-time PID calculations while the other manages UI and data logging. Features auto-tuning, safety limits, and wireless monitoring capabilities.",
-    techStack: ["ESP32", "RTOS", "PID Control", "C/C++", "FreeRTOS", "Embedded"],
+    techStack: ["ESP32", "PID Control", "C/C++", "FreeRTOS", "Embedded"],
     category: "Control Systems",
     image: "images/pid_temperature_control.png", // Image placeholder
   }
@@ -54,7 +54,7 @@ const projects: Project[] = [
 export default function Portfolio() {
   return (
     <main className="min-h-screen flex flex-col">
-      <div className="max-w-6xl mx-auto pt-20">
+      <div className="max-w-6xl mx-auto px-8 py-32">
         <motion.div 
           className="text-center mb-16 space-y-4"
           initial={{ opacity: 0, y: 20 }}
