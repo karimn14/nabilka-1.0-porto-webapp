@@ -9,24 +9,21 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { ArrowLeft, Target, Lightbulb, Wrench, Code, CheckCircle, BookOpen, ImageIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 
-const EpisodeDetail = () => {
-  const { topicId, episodeId } = useParams();
-
-  const episodeData: Record<string, any> = {
+const episodeData: Record<string, any> = {
     "microcontroller-pcb-1": {
-      title: "Exploring STM32F103C8T6 Blue Pill: Core Features and Capabilities",
+      title: "Uncovering STM32F103C8T6 Blue Pill: Core Features and Practical Exploration",
       date: "September 2024",
       duration: "2 weeks",
-      objective: "Gain comprehensive understanding of the STM32F103C8T6 Blue Pill development board, exploring its hardware architecture, peripheral capabilities, and practical implementation through hands-on experimentation with GPIO, timers, and basic communication interfaces.",
+      objective: "Dive deep into the STM32F103C8T6 Blue Pill development board, systematically exploring its hardware architecture, peripheral capabilities, and real-world implementation through hands-on experimentation with GPIO, timers, and communication interfaces.",
       planning: [
-        "Research the STM32F103C8T6 microcontroller specifications and Blue Pill board layout.",
-        "Study the ARM Cortex-M3 core architecture and its instruction set.",
-        "Identify key peripherals available on the Blue Pill (ADC, UART, SPI, I2C, timers).",
-        "Plan systematic exploration: start with GPIO basics, move to timers, then communication protocols.",
-        "Compare Blue Pill with STM32 Black Pill to understand evolution and differences."
+        "Research STM32F103C8T6 specifications and Blue Pill board pinout and layout.",
+        "Study ARM Cortex-M3 core architecture, instruction set, and memory organization.",
+        "Identify and document all available peripherals (ADC, UART, SPI, I2C, timers, CAN).",
+        "Plan systematic exploration: start with GPIO basics, progress to timer-based PWM, then communication protocols.",
+        "Compare Blue Pill with STM32 Black Pill to understand architectural differences and evolution."
       ],
       design: {
-        description: "The exploration focuses on understanding the microcontroller's architecture and how its peripherals interact with the real world. The Blue Pill serves as an accessible entry point to STM32 ecosystem, with its 72MHz Cortex-M3 core providing ample processing power for intermediate projects.",
+        description: "The exploration focuses on understanding how the microcontroller's architecture translates to practical embedded systems. The Blue Pill's 72MHz Cortex-M3 core provides sufficient processing power for intermediate projects, while its peripheral set enables diverse applications from motor control to sensor interfacing.",
         equations: [
           "Clock Frequency: f_CPU = 72 MHz (maximum for STM32F103 series)",
           "Timer Resolution: t_resolution = 1 / f_timer (13.89 ns at 72MHz)",
@@ -41,10 +38,10 @@ const EpisodeDetail = () => {
         "Pin Mapping Study: Analyzed the 40-pin layout and alternate function assignments for flexible hardware design."
       ],
       method: [
-        "Hardware Setup: Configured development environment with STM32CubeIDE and ST-Link programmer.",
-        "Systematic Testing: Implemented GPIO control, timer-based PWM generation, and UART communication.",
-        "Debugging Approach: Used onboard LED for visual feedback and serial output for monitoring internal states.",
-        "Documentation: Maintained detailed notes on register configurations and timing behaviors observed during testing."
+        "Hardware Setup: Configured STM32CubeIDE development environment and ST-Link programmer for debugging.",
+        "Systematic Testing: Implemented GPIO control for LED blinking, timer-based PWM generation for motor control, and UART communication for data logging.",
+        "Debugging Approach: Used onboard LED for visual feedback and serial output for monitoring internal states and register values.",
+        "Documentation: Maintained detailed notes on register configurations, timing behaviors, and observed performance characteristics."
       ],
       implementation: {
         tools: ["STM32CubeIDE", "ST-Link V2 Programmer", "Logic Analyzer", "Multimeter", "Oscilloscope"],
@@ -52,7 +49,7 @@ const EpisodeDetail = () => {
 // Basic setup for LED blinking with timer interrupts
 void TIM2_IRQHandler(void) {
     if (TIM_GetITStatus(TIM2, TIM_IT_Update) != RESET) {
-        GPIO_WriteBit(GPIOC, GPIO_Pin_13, 
+        GPIO_WriteBit(GPIOC, GPIO_Pin_13,
                      GPIO_ReadOutputDataBit(GPIOC, GPIO_Pin_13) ? Bit_RESET : Bit_SET);
         TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
     }
@@ -65,13 +62,13 @@ void UART_SendString(char* str) {
         USART_SendData(USART1, *str++);
     }
 }`,
-        results: "Successfully mapped all major peripherals, achieved reliable UART communication at 115200 baud, and implemented timer-based PWM with 1μs resolution. The Blue Pill proved to be a capable platform for intermediate embedded projects."
+        results: "Successfully mapped all major peripherals, achieved reliable UART communication at 115200 baud, and implemented timer-based PWM with 1μs resolution. The Blue Pill proved to be a capable platform for intermediate embedded projects, demonstrating the practical application of STM32 peripherals in real-world scenarios."
       },
       lessonsLearned: [
-        "Peripheral Initialization: Proper clock enabling and GPIO configuration are crucial for reliable operation.",
-        "Interrupt Handling: Understanding NVIC priorities and interrupt nesting prevents timing issues.",
-        "Power Management: The Blue Pill's low power modes make it suitable for battery-powered applications.",
-        "Hardware Limitations: 64KB Flash limits complex applications, necessitating efficient code practices."
+        "Peripheral Initialization: Proper clock enabling and GPIO configuration are crucial for reliable operation, as incorrect setup can lead to erratic behavior.",
+        "Interrupt Handling: Understanding NVIC priorities and interrupt nesting prevents timing issues and ensures responsive system behavior.",
+        "Power Management: The Blue Pill's low power modes make it suitable for battery-powered applications, extending operational life significantly.",
+        "Hardware Limitations: 64KB Flash limits complex applications, necessitating efficient code practices and careful memory management."
       ],
       nextSteps: [
         "Transition to STM32 Black Pill for enhanced performance and more peripherals.",
@@ -863,6 +860,9 @@ end`,
       ]
     }
   };
+
+const EpisodeDetail = () => {
+  const { topicId, episodeId } = useParams();
 
   const episodeKey = `${topicId}-${episodeId}`;
   const episode = episodeData[episodeKey];
