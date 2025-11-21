@@ -2,11 +2,11 @@
 
 A comprehensive engineering portfolio showcasing expertise in embedded systems, robotics, and full-stack development. This interactive web application documents my continuous learning journey through detailed technical episodes and project implementations.
 
-## 🚀 About This Project
+## About This Project
 
 This portfolio represents my commitment to lifelong learning in engineering, featuring hands-on projects and technical explorations across multiple domains. Built as a modern web application, it serves as both a professional showcase and a personal knowledge base.
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 - **React 18** with TypeScript
@@ -28,21 +28,21 @@ This portfolio represents my commitment to lifelong learning in engineering, fea
 - **Vite** for development server
 - **Drizzle Kit** for database management
 
-## 📚 Current Learning Episodes
+## Current Learning Episodes
 
-### 🔧 Intermediate Microcontroller & PCB Design
+### Intermediate Microcontroller & PCB Design
 Exploring STM32 ecosystem from Blue Pill fundamentals to advanced custom board design. Episodes 1-2 completed with detailed implementation, episodes 3-6 planned for future development.
 
-### 🧠 MATLAB Nonlinear ANFIS Control
+### MATLAB Nonlinear ANFIS Control
 Developing adaptive neuro-fuzzy inference systems for intelligent control applications.
 
-### 🤖 ROS Navigation & Digital Twin
+### ROS Navigation & Digital Twin
 Building autonomous navigation systems using ROS with integrated digital twin simulation. Focus on SLAM, path planning, and virtual environment synchronization.
 
-### 🌱 MCCS (Mobile Carbon Capture System)
+### MCCS (Mobile Carbon Capture System)
 Designing a mobile carbon capture system integrated with motorcycle design for environmental sustainability.
 
-### ⚡ 30A ESC Brushless Motor PCB Design
+### 30A ESC Brushless Motor PCB Design
 Creating efficient Electronic Speed Controllers for brushless motors with advanced control systems.
 
 ## 🏗️ Project Structure
@@ -97,7 +97,7 @@ Creating efficient Electronic Speed Controllers for brushless motors with advanc
    npm start
    ```
 
-## 🎯 Development Philosophy
+## Development Philosophy
 
 This portfolio follows a **learning-by-doing** approach, where each technical episode represents a deep dive into a specific engineering challenge. The development process emphasizes:
 
@@ -106,7 +106,7 @@ This portfolio follows a **learning-by-doing** approach, where each technical ep
 - **Iterative Learning**: Building upon previous knowledge with increasing complexity
 - **Open-Source Mindset**: Sharing knowledge and methodologies with the community
 
-## 🔮 Future Plans
+## Future Plans
 
 ### Short-term (3-6 months)
 - Complete microcontroller PCB design series with custom board prototyping
@@ -122,12 +122,6 @@ This portfolio follows a **learning-by-doing** approach, where each technical ep
 - Establish comprehensive engineering knowledge base
 - Contribute to open-source embedded systems projects
 - Mentor aspiring engineers through documented learning paths
-
-## 📞 Contact
-
-- **Email**: [Your email]
-- **LinkedIn**: [Your LinkedIn]
-- **GitHub**: [Your GitHub]
 
 ## 📄 License
 
