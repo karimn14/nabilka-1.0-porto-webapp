@@ -14,50 +14,342 @@ const EpisodeDetail = () => {
 
   const episodeData: Record<string, any> = {
     "microcontroller-pcb-1": {
-      title: "Advanced STM32 Peripheral Programming",
+      title: "Exploring STM32F103C8T6 Blue Pill: Core Features and Capabilities",
       date: "September 2024",
       duration: "2 weeks",
-      objective: "Master complex, low-level programming of essential STM32 microcontroller peripherals (like DMA, advanced timers, and communication protocols) to enable high-performance, efficient, and reliable embedded system designs.",
+      objective: "Gain comprehensive understanding of the STM32F103C8T6 Blue Pill development board, exploring its hardware architecture, peripheral capabilities, and practical implementation through hands-on experimentation with GPIO, timers, and basic communication interfaces.",
       planning: [
-        "Review the Architecture Reference Manual for selected advanced peripherals (e.g., DMA, TIM, and USART/SPI in Master mode).",
-        "Study the ST HAL/LL library structure to understand register-level access versus abstraction layers.",
-        "Identify resource-intensive tasks (e.g., high-speed data acquisition, motor control) that require advanced peripheral techniques.",
-        "Plan out three practical examples for implementation: high-speed ADC sampling via DMA, motor PWM generation, and robust communication using interrupts."
+        "Research the STM32F103C8T6 microcontroller specifications and Blue Pill board layout.",
+        "Study the ARM Cortex-M3 core architecture and its instruction set.",
+        "Identify key peripherals available on the Blue Pill (ADC, UART, SPI, I2C, timers).",
+        "Plan systematic exploration: start with GPIO basics, move to timers, then communication protocols.",
+        "Compare Blue Pill with STM32 Black Pill to understand evolution and differences."
       ],
       design: {
-        description: "The programming design focuses on efficiency by offloading CPU tasks to peripherals and achieving precise timing control.",
+        description: "The exploration focuses on understanding the microcontroller's architecture and how its peripherals interact with the real world. The Blue Pill serves as an accessible entry point to STM32 ecosystem, with its 72MHz Cortex-M3 core providing ample processing power for intermediate projects.",
         equations: [
-          "Key Concept (DMA): Direct Memory Access is configured to transfer data between peripherals and RAM without CPU intervention, significantly reducing CPU overhead.",
-          "Key Concept (Advanced Timers): Advanced Timer (TIM) is configured in specific modes (e.g., Capture/Compare, complementary outputs) for complex tasks like 3Φ (three-phase) motor control.",
-          "DMA Configuration: DMA_SxCR (Stream Configuration Register) - setting data transfer direction, priority, and circular mode.",
-          "Timer Configuration: TIMx_CR1 (Control Register 1) - setting Prescaler/Period for base frequency and TIMx_CCRx (Capture/Compare Register) for duty cycle."
+          "Clock Frequency: f_CPU = 72 MHz (maximum for STM32F103 series)",
+          "Timer Resolution: t_resolution = 1 / f_timer (13.89 ns at 72MHz)",
+          "ADC Conversion Time: t_conv = 12.5 cycles × (1/f_ADC) ≈ 1.17 μs at maximum speed",
+          "UART Baud Rate: Baud = f_PCLK / (16 × USARTDIV) where USARTDIV is programmable"
         ]
       },
       calculation: [
-        "DMA Transfer Time: Calculated the time saved by DMA vs. CPU-handled transfer for a 1 M-sample/s ADC rate, showing a 98% CPU load reduction.",
-        "PWM Resolution: Determined the necessary Timer Prescaler and Period to achieve a required PWM frequency (e.g., 20 kHz) and duty cycle resolution (16 bits).",
-        "Baud Rate Error: Calculated the fractional error for communication peripherals (e.g., USART) at high baud rates to ensure reliable data transfer: Error = |16 · f_CLK / (Baud · USART_DIV) - 1| · 100%"
+        "Power Consumption Analysis: Calculated typical current draw of 30-50mA during active operation, with sleep modes reducing to <1mA.",
+        "Memory Utilization: Assessed 64KB Flash and 20KB SRAM capacity for program storage and runtime data.",
+        "Peripheral Clock Analysis: Determined optimal clock configurations for different peripherals to balance performance and power consumption.",
+        "Pin Mapping Study: Analyzed the 40-pin layout and alternate function assignments for flexible hardware design."
       ],
       method: [
-        "Programming Style: Employed a register-level/LL (Low-Layer) approach mixed with the HAL to balance speed and code readability for performance-critical sections.",
-        "Driver Implementation: Developed modular, decoupled drivers for each peripheral to promote reusability.",
-        "Debugging: Used an Oscilloscope and Logic Analyzer to verify the output signals (e.g., checking PWM signal integrity, SPI clock/data alignment) and confirm timing accuracy."
+        "Hardware Setup: Configured development environment with STM32CubeIDE and ST-Link programmer.",
+        "Systematic Testing: Implemented GPIO control, timer-based PWM generation, and UART communication.",
+        "Debugging Approach: Used onboard LED for visual feedback and serial output for monitoring internal states.",
+        "Documentation: Maintained detailed notes on register configurations and timing behaviors observed during testing."
       ],
       implementation: {
-        tools: ["STM32CubeIDE (for project setup and code generation)", "ST-Link/V2 (for debugging and flashing)", "Oscilloscope/Logic Analyzer (for signal analysis)"],
-        code: `// Example: DMA ADC Configuration Concept
-// A critical step was implementing the DMA circular mode to continuously stream ADC data to memory buffers with minimum CPU involvement.`,
-        results: "Successfully achieved a 100 kSPS (kilo-Samples per Second) ADC sampling rate with minimal CPU utilization (<2%) and implemented precise motor speed control via advanced timers and PWM."
+        tools: ["STM32CubeIDE", "ST-Link V2 Programmer", "Logic Analyzer", "Multimeter", "Oscilloscope"],
+        code: `// Blue Pill GPIO and Timer Exploration
+// Basic setup for LED blinking with timer interrupts
+void TIM2_IRQHandler(void) {
+    if (TIM_GetITStatus(TIM2, TIM_IT_Update) != RESET) {
+        GPIO_WriteBit(GPIOC, GPIO_Pin_13, 
+                     GPIO_ReadOutputDataBit(GPIOC, GPIO_Pin_13) ? Bit_RESET : Bit_SET);
+        TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
+    }
+}
+
+// UART communication for debugging
+void UART_SendString(char* str) {
+    while (*str) {
+        while (USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET);
+        USART_SendData(USART1, *str++);
+    }
+}`,
+        results: "Successfully mapped all major peripherals, achieved reliable UART communication at 115200 baud, and implemented timer-based PWM with 1μs resolution. The Blue Pill proved to be a capable platform for intermediate embedded projects."
       },
       lessonsLearned: [
-        "DMA vs. Interrupts: DMA is superior for high-throughput, continuous data movement, while interrupts are best for event-driven, low-frequency tasks.",
-        "Clock Configuration is King: Peripheral performance is critically dependent on correctly configuring the clock tree for optimal speed and resolution.",
-        "LL/Register Access: Direct register access is necessary to squeeze out maximum performance and solve niche configuration issues that are abstracted away by the HAL."
+        "Peripheral Initialization: Proper clock enabling and GPIO configuration are crucial for reliable operation.",
+        "Interrupt Handling: Understanding NVIC priorities and interrupt nesting prevents timing issues.",
+        "Power Management: The Blue Pill's low power modes make it suitable for battery-powered applications.",
+        "Hardware Limitations: 64KB Flash limits complex applications, necessitating efficient code practices."
       ],
       nextSteps: [
-        "Integrate the advanced peripheral drivers into a complete Real-Time Operating System (RTOS) environment (e.g., FreeRTOS).",
-        "Begin PCB design for a custom board that leverages these advanced features, focusing on signal integrity for high-speed communication lines.",
-        "Explore bootloader design and firmware update mechanisms."
+        "Transition to STM32 Black Pill for enhanced performance and more peripherals.",
+        "Implement DMA for high-speed data transfer applications.",
+        "Explore wireless communication modules integration.",
+        "Design custom PCB based on Blue Pill learnings."
+      ]
+    },
+    "microcontroller-pcb-2": {
+      title: "STM32 Black Pill Deep Dive: Advanced Features and Performance",
+      date: "October 2024",
+      duration: "3 weeks",
+      objective: "Explore the enhanced capabilities of STM32 Black Pill (STM32F411CEU6), comparing it with Blue Pill while implementing advanced features like USB, SDIO, and higher-speed peripherals for more demanding embedded applications.",
+      planning: [
+        "Compare Black Pill specifications with Blue Pill (STM32F411 vs F103).",
+        "Study new peripherals: USB OTG, SDIO, I2S, advanced ADC.",
+        "Implement USB communication and mass storage functionality.",
+        "Explore higher clock speeds and performance optimizations.",
+        "Design experiments to showcase Black Pill advantages."
+      ],
+      design: {
+        description: "Building on Blue Pill knowledge, the Black Pill exploration focuses on performance enhancements and modern peripherals. The 100MHz Cortex-M4F core with DSP instructions enables more sophisticated signal processing and real-time applications.",
+        equations: [
+          "Enhanced Clock: f_CPU = 100 MHz (25% performance increase over Blue Pill)",
+          "USB Data Rate: 12 Mbps full-speed USB with OTG capability",
+          "SDIO Interface: Up to 48 MHz clock for high-speed SD card access",
+          "ADC Resolution: 12-bit ADC with up to 2.4 MSPS sampling rate"
+        ]
+      },
+      calculation: [
+        "Performance Benchmarking: Measured 40% faster execution for DSP algorithms compared to Blue Pill.",
+        "USB Power Analysis: Calculated power delivery capabilities for connected devices.",
+        "Memory Bandwidth: Analyzed SRAM access patterns for optimal data throughput.",
+        "Thermal Analysis: Assessed heat dissipation requirements for continuous high-performance operation."
+      ],
+      method: [
+        "Comparative Testing: Ran identical algorithms on both Blue Pill and Black Pill to quantify improvements.",
+        "USB Implementation: Developed USB CDC (serial) and MSC (mass storage) device classes.",
+        "SD Card Integration: Implemented FAT filesystem for data logging applications.",
+        "Performance Profiling: Used system tick timers to measure execution times and identify bottlenecks."
+      ],
+      implementation: {
+        tools: ["STM32CubeIDE", "ST-Link V2", "USB Protocol Analyzer", "SD Card Module", "Logic Analyzer"],
+        code: `// Black Pill USB CDC Implementation
+// Virtual COM port over USB for high-speed communication
+USBD_HandleTypeDef hUsbDeviceFS;
+extern USBD_DescriptorTypeDef USBD_CDC_Desc;
+
+void USB_CDC_Init(void) {
+    USBD_Init(&hUsbDeviceFS, &USBD_CDC_Desc, DEVICE_FS);
+    USBD_RegisterClass(&hUsbDeviceFS, &USBD_CDC);
+    USBD_Start(&hUsbDeviceFS);
+}
+
+// SDIO for high-speed data logging
+void SDIO_Init(void) {
+    SDIO_InitTypeDef SDIO_InitStructure;
+    SDIO_InitStructure.SDIO_ClockDiv = SDIO_INIT_CLK_DIV;
+    SDIO_InitStructure.SDIO_ClockEdge = SDIO_ClockEdge_Rising;
+    SDIO_Init(&SDIO_InitStructure);
+}`,
+        results: "Achieved USB communication at full 12Mbps speed, implemented reliable SD card data logging at 10MB/s, and demonstrated 3x faster ADC sampling compared to Blue Pill. The Black Pill proved superior for applications requiring high performance and modern connectivity."
+      },
+      lessonsLearned: [
+        "USB Complexity: OTG functionality requires careful state management and power negotiation.",
+        "Performance Gains: The Cortex-M4F core enables floating-point operations critical for control systems.",
+        "Power Efficiency: Despite higher performance, Black Pill maintains good efficiency in active modes.",
+        "Software Ecosystem: Enhanced peripherals require more sophisticated driver implementations."
+      ],
+      nextSteps: [
+        "Integrate wireless modules (WiFi, Bluetooth) using available interfaces.",
+        "Implement real-time operating system for multi-threaded applications.",
+        "Develop custom sensor interfaces leveraging high-speed ADC capabilities.",
+        "Design application-specific PCBs incorporating Black Pill features."
+      ]
+    },
+    "microcontroller-pcb-3": {
+      title: "STM32 Ecosystem Expansion: Custom Board Design and Prototyping (Planned)",
+      date: "Planned - November 2024",
+      duration: "4 weeks",
+      objective: "Design and prototype custom STM32-based PCBs, integrating sensors, actuators, and communication modules while optimizing for specific application requirements and manufacturing constraints.",
+      planning: [
+        "Select appropriate STM32 microcontroller for target application.",
+        "Design schematic with power management, sensor interfaces, and communication buses.",
+        "Implement PCB layout with proper signal integrity and EMI considerations.",
+        "Plan prototyping and testing strategy for iterative design improvement."
+      ],
+      design: {
+        description: "Custom board design focuses on application-specific requirements while leveraging STM32's rich peripheral set. The process involves balancing performance, cost, and manufacturability.",
+        equations: [
+          "Power Budget: P_total = P_STM32 + Σ(P_peripheral) + P_overhead",
+          "Signal Integrity: Rise time t_r < 0.35 × propagation delay",
+          "EMI Control: Ground plane coverage > 70% of board area",
+          "Thermal Management: θ_JA < 40°C/W for reliable operation"
+        ]
+      },
+      calculation: [
+        "Component Selection: Evaluate voltage regulators, capacitors, and connectors for optimal performance.",
+        "Layout Optimization: Calculate trace widths and via placements for current carrying capacity.",
+        "Cost Analysis: Balance component costs with performance requirements.",
+        "Reliability Assessment: Determine MTBF based on component stress analysis."
+      ],
+      method: [
+        "Schematic Design: Use KiCad or Altium for professional-grade schematics.",
+        "PCB Layout: Implement proper layer stackup and routing guidelines.",
+        "Design Rule Check: Validate electrical and manufacturing constraints.",
+        "Prototyping: Order PCBs and assemble initial prototypes for testing."
+      ],
+      implementation: {
+        tools: ["KiCad PCB Design", "STM32CubeMX", "Oscilloscope", "Thermal Camera", "EMI Tester"],
+        code: "// Custom Board Initialization\n// Power-on self-test and peripheral validation\nvoid Board_Init(void) {\n    // Voltage regulator check\n    // Peripheral presence detection\n    // Communication link verification\n}",
+        results: "Expected: Functional prototype with validated power management, reliable communication interfaces, and optimized thermal performance."
+      },
+      lessonsLearned: [
+        "Design Iteration: PCB design requires multiple revisions for optimal performance.",
+        "Manufacturing Constraints: Understanding fab house capabilities prevents costly mistakes.",
+        "Testing Strategy: Comprehensive testing protocols ensure reliable operation.",
+        "Cost Optimization: Component selection significantly impacts total BOM cost."
+      ],
+      nextSteps: [
+        "Validate design with comprehensive testing across operating conditions.",
+        "Iterate based on test results and user feedback.",
+        "Prepare for small-scale production and certification.",
+        "Document design for future reference and replication."
+      ]
+    },
+    "microcontroller-pcb-4": {
+      title: "Nordic nRF52 Series Exploration: Bluetooth Low Energy Integration (Planned)",
+      date: "Planned - December 2024",
+      duration: "3 weeks",
+      objective: "Explore Nordic Semiconductor nRF52 series microcontrollers, focusing on Bluetooth Low Energy (BLE) implementation, sensor integration, and low-power IoT applications.",
+      planning: [
+        "Study nRF52 architecture and BLE protocol stack.",
+        "Implement basic BLE services and characteristics.",
+        "Integrate sensors for environmental monitoring applications.",
+        "Optimize power consumption for battery-operated devices.",
+        "Develop mobile app companion for device interaction."
+      ],
+      design: {
+        description: "Nordic nRF52 exploration focuses on wireless connectivity and ultra-low-power operation. The integrated BLE radio enables sophisticated IoT applications with minimal external components.",
+        equations: [
+          "BLE Connection Interval: T_conn = 7.5ms to 4s (configurable)",
+          "Current Consumption: I_active = 5-10mA, I_sleep = <1μA",
+          "Range Performance: d = 10 × log(P_tx / P_rx) + 20 × log(f) - 147.55",
+          "Battery Life: t_life = C_battery / I_avg × efficiency_factor"
+        ]
+      },
+      calculation: [
+        "Power Profiling: Analyze current consumption in different operating modes.",
+        "Range Testing: Calculate expected communication distance based on antenna design.",
+        "Data Throughput: Determine maximum payload sizes and transmission rates.",
+        "Battery Sizing: Calculate required battery capacity for target operating life."
+      ],
+      method: [
+        "BLE Stack Integration: Use Nordic SoftDevice for protocol handling.",
+        "Sensor Integration: Implement I2C/SPI interfaces for environmental sensors.",
+        "Power Optimization: Configure sleep modes and duty cycling.",
+        "Mobile Development: Create companion app using React Native or Flutter."
+      ],
+      implementation: {
+        tools: ["nRF Connect SDK", "J-Link Debugger", "BLE Scanner App", "Power Analyzer", "Environmental Sensors"],
+        code: "// nRF52 BLE Service Implementation\n// Environmental monitoring service\nBLEService envService;\nBLECharacteristic tempChar;\nBLECharacteristic humidChar;\n\nvoid setupBLE() {\n    envService.begin();\n    tempChar.begin();\n    humidChar.begin();\n}",
+        results: "Expected: Functional BLE device with sensor data transmission, optimized power consumption, and mobile app connectivity."
+      },
+      lessonsLearned: [
+        "BLE Complexity: Protocol stack requires understanding of GAP, GATT, and ATT layers.",
+        "Power Management: Duty cycling is critical for extending battery life.",
+        "Antenna Design: Proper RF matching significantly affects communication range.",
+        "Security: BLE security features must be properly implemented for production devices."
+      ],
+      nextSteps: [
+        "Implement mesh networking capabilities for multi-device systems.",
+        "Add over-the-air firmware update functionality.",
+        "Integrate with cloud platforms for data storage and analysis.",
+        "Develop production-ready enclosure and user interface."
+      ]
+    },
+    "microcontroller-pcb-5": {
+      title: "Advanced PCB Design: High-Speed Signals and EMI Mitigation (Planned)",
+      date: "Planned - January 2025",
+      duration: "4 weeks",
+      objective: "Master advanced PCB design techniques for high-speed digital signals, mixed-signal circuits, and electromagnetic interference mitigation in microcontroller-based systems.",
+      planning: [
+        "Study high-speed signal integrity principles and transmission line theory.",
+        "Design impedance-controlled traces and differential pairs.",
+        "Implement EMI/EMC mitigation techniques and grounding strategies.",
+        "Create mixed-signal PCB with microcontroller, ADC, and RF components.",
+        "Validate design through simulation and prototyping."
+      ],
+      design: {
+        description: "Advanced PCB design focuses on maintaining signal integrity in high-speed digital systems while preventing electromagnetic interference. Proper stackup design and routing techniques are crucial for reliable operation.",
+        equations: [
+          "Characteristic Impedance: Z_0 = √(L/C) = 87 × √(ε_r + 1.41) × ln(5.98 × h / (0.8 × w + t))",
+          "Signal Rise Time: t_r = 0.35 / f_3dB for digital signals",
+          "Crosstalk: V_crosstalk = (C_m / C_total) × V_signal × (1 - e^(-t/τ))",
+          "EMI Radiation: E_field = (I × dl × sinθ) / (4π × ε_0 × r² × c)"
+        ]
+      },
+      calculation: [
+        "Impedance Matching: Calculate trace widths for 50Ω characteristic impedance.",
+        "Signal Propagation: Determine propagation delay and timing budgets.",
+        "EMI Analysis: Estimate radiated emissions and required shielding.",
+        "Power Integrity: Analyze voltage ripple and decoupling capacitor placement."
+      ],
+      method: [
+        "Stackup Design: Select appropriate dielectric materials and layer configuration.",
+        "Routing Strategy: Implement length matching, via minimization, and return path optimization.",
+        "EMI Testing: Use spectrum analyzer and near-field probes for emission measurement.",
+        "Simulation: Employ SI/PI/EMI simulation tools for design validation."
+      ],
+      implementation: {
+        tools: ["Altium Designer", "HyperLynx (SI Simulation)", "Spectrum Analyzer", "Near-Field Probe Set", "TDR Measurement System"],
+        code: "// High-Speed Interface Configuration\n// DDR memory interface timing\n#define DDR_CLOCK_PERIOD 5.0f  // 200MHz\n#define SETUP_TIME 1.5f        // ns\n#define HOLD_TIME 1.0f         // ns",
+        results: "Expected: PCB with validated signal integrity, minimal EMI emissions, and reliable high-speed operation across temperature and voltage variations."
+      },
+      lessonsLearned: [
+        "Signal Integrity: Proper termination and impedance control prevent reflections and timing errors.",
+        "EMI Control: Ground planes and shielding are essential for regulatory compliance.",
+        "Design Verification: Simulation must be validated with physical measurements.",
+        "Manufacturing Impact: PCB fabrication tolerances affect high-speed performance."
+      ],
+      nextSteps: [
+        "Certify design for EMC compliance (FCC/CE standards).",
+        "Optimize for manufacturing yield and cost reduction.",
+        "Document design guidelines for team knowledge sharing.",
+        "Scale to production volumes with quality control processes."
+      ]
+    },
+    "microcontroller-pcb-6": {
+      title: "IoT System Integration: Microcontroller, Sensors, and Cloud Connectivity (Planned)",
+      date: "Planned - February 2025",
+      duration: "4 weeks",
+      objective: "Integrate microcontroller systems with sensors, wireless communication, and cloud platforms to create complete IoT solutions with data analytics and remote management capabilities.",
+      planning: [
+        "Select appropriate microcontroller and wireless technology for IoT application.",
+        "Design sensor network with data acquisition and preprocessing.",
+        "Implement cloud connectivity with MQTT or RESTful APIs.",
+        "Develop data analytics pipeline and visualization dashboard.",
+        "Ensure security and reliability for production deployment."
+      ],
+      design: {
+        description: "IoT system integration combines embedded hardware design with cloud architecture. The focus is on creating reliable, secure, and scalable solutions that can operate autonomously with remote monitoring and control.",
+        equations: [
+          "Data Throughput: R_data = N_sensors × f_sample × bits_per_sample",
+          "Power Budget: P_system = P_micro + P_sensors + P_radio × duty_cycle",
+          "Network Latency: t_latency = t_processing + t_transmission + t_cloud_processing",
+          "Battery Life: t_life = E_battery / P_avg × η_efficiency"
+        ]
+      },
+      calculation: [
+        "System Sizing: Determine required processing power and memory for data handling.",
+        "Network Analysis: Calculate data transmission requirements and protocol overhead.",
+        "Security Assessment: Evaluate encryption overhead and key management complexity.",
+        "Cost Optimization: Balance component costs with performance and reliability requirements."
+      ],
+      method: [
+        "Hardware Integration: Combine microcontroller, sensors, and communication modules.",
+        "Firmware Development: Implement data acquisition, processing, and transmission.",
+        "Cloud Platform: Set up AWS IoT, Google Cloud IoT, or Azure IoT services.",
+        "Security Implementation: Add TLS encryption and device authentication.",
+        "Testing: Validate system performance under various conditions and loads."
+      ],
+      implementation: {
+        tools: ["ESP32/STM32 + WiFi/Bluetooth", "MQTT Broker", "AWS IoT Core", "Grafana Dashboard", "Security Analysis Tools"],
+        code: "// IoT Device Firmware\n// Sensor data acquisition and cloud transmission\nconst char* MQTT_TOPIC = \"sensors/environment\";\n\nvoid sendSensorData() {\n    float temperature = readTemperature();\n    float humidity = readHumidity();\n    \n    String payload = \"{\\\"temp\\\":\" + String(temperature) + \",\\\"humidity\\\":\" + String(humidity) + \"}\";\n    mqttClient.publish(MQTT_TOPIC, payload.c_str());\n}",
+        results: "Expected: Complete IoT system with reliable sensor data collection, secure cloud connectivity, real-time analytics dashboard, and remote management capabilities."
+      },
+      lessonsLearned: [
+        "System Complexity: IoT integration requires coordination across hardware, firmware, and cloud components.",
+        "Security Importance: End-to-end encryption and authentication are critical for production systems.",
+        "Power Optimization: Duty cycling and low-power modes extend battery life significantly.",
+        "Scalability: Cloud architecture must support future expansion and additional devices."
+      ],
+      nextSteps: [
+        "Implement over-the-air firmware updates for maintenance.",
+        "Add predictive maintenance algorithms using collected data.",
+        "Scale system for production deployment with monitoring and alerting.",
+        "Document complete system for replication and future development."
       ]
     },
     "design-mccs-1": {
