@@ -10,7 +10,7 @@ const Learning = () => {
     {
       id: "microcontroller-pcb",
       title: "Intermediate Microcontroller & PCB Design",
-      summary: "Advancing skills in embedded hardware design and microcontroller programming",
+      summary: "Exploring STM32 ecosystem from Blue Pill fundamentals to advanced custom board design. Episodes 1-2 completed with detailed implementation, episodes 3-6 planned for future development.",
       episodeCount: 6,
       duration: "3 months",
       status: "In Progress",
@@ -28,7 +28,7 @@ const Learning = () => {
     {
       id: "ros-digital-twin",
       title: "ROS Navigation & Digital Twin",
-      summary: "Building autonomous navigation systems and virtual simulation environments",
+      summary: "Developing autonomous navigation systems using ROS with integrated digital twin simulation. Focus on SLAM, path planning, and virtual environment synchronization for robotics applications.",
       episodeCount: 6,
       duration: "4 months",
       status: "Active",
@@ -37,7 +37,7 @@ const Learning = () => {
     {
       id: "design-mccs",
       title: "Design MCCS (Mobile Carbon Capture System) for Motorcycle",
-      summary: "Developing a mobile carbon capture system integrated with motorcycle design for environmental sustainability",
+      summary: "Developing a mobile carbon capture system integrated with motorcycle design for environmental sustainability. Episode 1 completed with system architecture and requirements analysis, episodes 2-4 planned for chemistry, integration, and control implementation.",
       episodeCount: 4,
       duration: "2 months",
       status: "Planning",
@@ -46,7 +46,7 @@ const Learning = () => {
     {
       id: "simple-30a-esc",
       title: "Simple 30A ESC Brushless Motor PCB Design",
-      summary: "Designing a compact and efficient 30A Electronic Speed Controller for brushless motors",
+      summary: "Designing a compact and efficient 30A Electronic Speed Controller for brushless motors. Episode 1 completed with architecture analysis, episodes 2-3 planned for control implementation and protection systems.",
       episodeCount: 3,
       duration: "1 month",
       status: "Planning",
