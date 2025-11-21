@@ -20,14 +20,14 @@ const LearningDetail = () => {
   const topicData: Record<string, { title: string; description: string; episodes: Episode[] }> = {
     "microcontroller-pcb": {
       title: "Intermediate Microcontroller & PCB Design",
-      description: "Advancing skills in embedded hardware design and microcontroller programming",
+      description: "Exploring STM32 ecosystem from Blue Pill fundamentals to advanced custom board design. Episodes 1-2 completed with detailed implementation, episodes 3-6 planned for future development.",
       episodes: [
-        { id: 1, title: "Advanced STM32 Peripheral Programming", date: "2024-09", duration: "2 weeks", status: "completed" },
-        { id: 2, title: "DMA and Timer Configuration", date: "2024-09", duration: "2 weeks", status: "completed" },
-        { id: 3, title: "4-Layer PCB Design Fundamentals", date: "2024-10", duration: "3 weeks", status: "completed" },
-        { id: 4, title: "Signal Integrity & Impedance Control", date: "2024-10", duration: "2 weeks", status: "in-progress" },
-        { id: 5, title: "RTOS Implementation Patterns", date: "2024-11", duration: "3 weeks", status: "in-progress" },
-        { id: 6, title: "Bootloader Development", date: "2024-12", duration: "2 weeks", status: "planned" }
+        { id: 1, title: "Uncovering STM32F103C8T6 Blue Pill: Core Features and Practical Exploration", date: "2024-09", duration: "2 weeks", status: "completed" },
+        { id: 2, title: "STM32 Black Pill Deep Dive: Advanced Features and Performance", date: "2024-10", duration: "3 weeks", status: "completed" },
+        { id: 3, title: "STM32 Ecosystem Expansion: Custom Board Design and Prototyping (Planned)", date: "2024-11", duration: "4 weeks", status: "planned" },
+        { id: 4, title: "Nordic nRF52 Series Exploration: Bluetooth Low Energy Integration (Planned)", date: "2024-12", duration: "3 weeks", status: "planned" },
+        { id: 5, title: "Advanced PCB Design: High-Speed Signals and EMI Mitigation (Planned)", date: "2025-01", duration: "4 weeks", status: "planned" },
+        { id: 6, title: "IoT System Integration: Microcontroller, Sensors, and Cloud Connectivity (Planned)", date: "2025-02", duration: "4 weeks", status: "planned" }
       ]
     },
     "anfis-control": {
