@@ -11,7 +11,87 @@ const EpisodeDetail = () => {
 
   // Sample data structure - this would come from a data source
   const episodeData: Record<string, any> = {
-    "anfis-control-1": {
+    "gnc-modelling-1": {
+      title: "Energy Efficiency Comparison Between PID and Robust Adaptive Backstepping on a Quadrotor With Sudden Payload Variation",
+      date: "2024-06-14",
+      duration: "N/A",
+      objective: `
+Quadrotor UAVs used in agricultural spraying and logistics missions face a unique challenge: sudden payload variation. When liquid is sprayed or a package is released, the drone’s total mass can decrease drastically—often up to 50% within a short time window.
+
+Conventional fixed-gain controllers such as PID are not designed to react to abrupt mass reduction. After payload release, the controller continues to generate lift required for the heavier mass, resulting in a dangerous overshoot in altitude. Such overshoot increases energy waste and compromises safety, especially in low-altitude flight.
+
+This research aims to design an Adaptive Backstepping controller capable of:
+• Estimating the new mass in real time.
+• Maintaining altitude stability without overshoot during and after payload drop.
+• Minimizing energy consumption (control effort), achieving equal or better efficiency than PID even in noisy sensor environments.
+      `,
+      planning: [
+        `CHAPTER 1. INTRODUCTION`,
+        `1.1 Background`,
+        `The research addresses abrupt payload changes impacting quadrotor UAV control`,
+        `1.2 Research Objectives`,
+        `Design adaptive controller with stability and energy efficiency`,
+        `CHAPTER 2. THEORY AND SYSTEM MODELING`,
+        `Describe quadrotor vertical dynamics and control approach`,
+        `CHAPTER 3. METHODOLOGY AND EXPERIMENTAL EVOLUTION`,
+        `Details experiments for adaptive backstepping controller design and tuning`,
+        `CHAPTER 4. SIMULATION RESULTS AND ANALYSIS`,
+        `Presents tracking, energy consumption, parameter estimation results`,
+        `CHAPTER 5. CONCLUSION`,
+        `Summary of findings and implications`
+      ],
+      design: {
+        description: `
+The model focuses on vertical motion with unknown mass parameter. Backstepping control guarantees stability with adaptation laws.
+
+Key concepts include:
+- Stabilizing altitude using virtual control.
+- Real-time parameter adaptation for mass estimate.
+- Noise robust tuning and input saturation.
+        `,
+        equations: [
+          `m * z̈ = u * (cosϕ cosθ) - mg - d * ż  [quadrotor vertical dynamics]`,
+          `State-space: ẋ₁ = x₂, ẋ₂ = u * θ - g + Disturbance`,
+          `Adaptation law: θ̇ = Adaptation Law with parameter projection`
+        ]
+      },
+      calculation: [
+        `Phase 1 failure due to parameter blowup`,
+        `Trajectory smoothing reduces control input spike`,
+        `Filter and gain tuning reduces noise amplification`,
+        `Energy consumption comparisons show adaptive efficiency gains`
+      ],
+      method: [
+        `Lyapunov based backstepping adaptation`,
+        `Sigmoid smooth reference trajectory`,
+        `Dead zone, sigma modification for robustness`,
+        `Simulation over 20s with payload drop at t=8s`
+      ],
+      implementation: {
+        tools: [
+          "MATLAB/Simulink",
+          "Control System Toolbox",
+          "Adaptive Control Toolkits"
+        ],
+        code: `// Pseudocode snippet:
+function adaptive_controller(x, theta) {
+  // state update with adaptive law
+  // control input smoothing
+  // parameter projection for mass estimate
+}`
+      },
+      lessonsLearned: [
+        `Adaptive backstepping safely handles payload changes outperforming PID`,
+        `Proper noise filtering essential for stable adaptation`,
+        `Energy efficiency achievable despite complex adaptation`
+      ],
+      nextSteps: [
+        `Real-time implementation`,
+        `Physical hardware testing`,
+        `Performance benchmarking versus PID`
+      ]
+    },
+    "gnc-modelling-2": {
       title: "Derivation of Nonlinear Lyapunov Method with Neural Networks",
       date: "September 2024",
       duration: "3 weeks",
@@ -73,7 +153,7 @@ end`,
         "Compare performance with traditional PID and MPC controllers"
       ]
     },
-    "anfis-control-4": {
+    "gnc-modelling-5": {
       title: "Embedding Algorithm Control to Microcontroller",
       date: "November 2024",
       duration: "3 weeks",

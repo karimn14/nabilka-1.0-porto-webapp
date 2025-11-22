@@ -30,15 +30,16 @@ const LearningDetail = () => {
         { id: 6, title: "IoT System Integration: Microcontroller, Sensors, and Cloud Connectivity (Planned)", date: "2025-02", duration: "4 weeks", status: "planned" }
       ]
     },
-    "anfis-control": {
-      title: "MATLAB Nonlinear ANFIS Control",
+    "gnc-modelling": {
+      title: "MATLAB GNC and Modelling Control",
       description: "Exploring adaptive neuro-fuzzy inference systems for intelligent control",
       episodes: [
-        { id: 1, title: "Derivation of Nonlinear Lyapunov Method with Neural Networks", date: "2024-09", duration: "3 weeks", status: "completed" },
-        { id: 2, title: "ANFIS Architecture and Training Algorithms", date: "2024-10", duration: "2 weeks", status: "completed" },
-        { id: 3, title: "Fuzzy Logic Controller Design", date: "2024-10", duration: "2 weeks", status: "completed" },
-        { id: 4, title: "Embedding Algorithm Control to Microcontroller", date: "2024-11", duration: "3 weeks", status: "in-progress" },
-        { id: 5, title: "Hardware-in-the-Loop Testing", date: "2024-11", duration: "2 weeks", status: "planned" }
+        { id: 1, title: "Energy Efficiency Comparison Between PID and Robust Adaptive Backstepping on a Quadrotor With Sudden Payload Variation", date: "[Today’s Date]", duration: "N/A", status: "planned" },
+        { id: 2, title: "Derivation of Nonlinear Lyapunov Method with Neural Networks", date: "2024-09", duration: "3 weeks", status: "completed" },
+        { id: 3, title: "ANFIS Architecture and Training Algorithms", date: "2024-10", duration: "2 weeks", status: "completed" },
+        { id: 4, title: "Fuzzy Logic Controller Design", date: "2024-10", duration: "2 weeks", status: "completed" },
+        { id: 5, title: "Embedding Algorithm Control to Microcontroller", date: "2024-11", duration: "3 weeks", status: "in-progress" },
+        { id: 6, title: "Hardware-in-the-Loop Testing", date: "2024-11", duration: "2 weeks", status: "planned" }
       ]
     },
     "ros-digital-twin": {

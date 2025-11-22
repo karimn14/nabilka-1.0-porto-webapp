@@ -16,10 +16,10 @@ const Learning = () => {
       status: "In Progress"
     },
     {
-      id: "anfis-control",
-      title: "MATLAB Nonlinear ANFIS Control",
+      id: "gnc-modelling",
+      title: "MATLAB GNC and Modelling Control",
       summary: "Exploring adaptive neuro-fuzzy inference systems for intelligent control",
-      episodeCount: 5,
+      episodeCount: 6,
       duration: "2 months",
       status: "In Progress"
     },
